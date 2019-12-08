@@ -2,9 +2,15 @@
 GAME RULES:
 
 - The game has 2 players, playing in rounds
-- In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
-- BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
-- The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
+- In each turn, a player rolls a dice as many times as they set in the beginning. 
+
+- Each result get added to his ROUND score
+- BUT, if the player rolls a 1, all his ROUND score gets lost.
+- After that, it's the next player's turn.
+
+- The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score.
+- After that, it's the next player's turn
+
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
@@ -15,18 +21,17 @@ GAME RULES:
  */
 let scores, currentScore, activePlayer, winningScore;
 
-scores = [0, 0];    // Array to hold the scores of both player
-currentScore = 0;  // Current Score of current player
-activePlayer = 0;  // The index to maintain the current player
-winningScore = 100;
-numberOfDice = 2;
-maxNumberOfDice = 3;
-//  let dice = Math.floor(Math.random()*6 + 1);
-// console.log(dice);
+scores = [0, 0];     // Array to hold the scores of both player
+currentScore = 0;    // Current Score of current player
+activePlayer = 0;    // The index to maintain the current player
+winningScore = 100;  // Winning Score
+numberOfDice = 2;    // Default Number of Dice
+maxNumberOfDice = 3; // Maximum Dice
 
 // document.querySelector('body > div > img').src = "images/dice-"+{$dice}+".png";
 
 window.onload = function () {
+    // Set default EventListener & display
     (function init() {
         document.querySelector('.btn-roll').addEventListener('click', rollDice);
         document.querySelector('.btn-hold').addEventListener('click', holdButtonHandler);
@@ -68,6 +73,7 @@ function checkWinningScore(){
 }
 
 function checkUserName(){
+    // Check Player1 & Player2 Name
     if (document.getElementById("player1-name").value === "") {
         document.getElementById("player1-name").classList.replace("is-valid", "is-invalid");
         return false;
@@ -126,7 +132,7 @@ function rollDice() {
         console.log(`dice - ${i}`);
         let dice = Math.floor(Math.random() * 6 + 1);
         console.log(`Player_${activePlayer + 1} Roll ${dice}`);
-        // Display a relevant image
+        // Display & Roll Dice one by one
         (
             () => {
                 setTimeout((() => {
@@ -160,13 +166,6 @@ function rollDice() {
     }
 }
 
-// Hold function
-// 1) current score of the active player to the final score.
-
-// 4) Check for the winner
-// Text of the active player = 'Winner!!'
-// Apply the winer class on active player
-// Remove the active  class on the active player
 function holdButtonHandler() {
     // 1) current score of the active player to the final score.
     scores[activePlayer] += currentScore;
@@ -179,7 +178,7 @@ function holdButtonHandler() {
         dd.style.display = 'none';
     }
 
-    // Check if we have a winner
+    // 3) Check if we have a winner
     if (scores[activePlayer] >= winningScore) {
         document.querySelector(`#name-${activePlayer}`).textContent = 'Winner!!';
   
@@ -195,14 +194,6 @@ function holdButtonHandler() {
 
 
 function toggleActiveUser() {
-    // 2) Toggle the active player
-    // a) Toggle the variable
-    // b) Visual Toggling
-    // 3) Reset the current score
-
-    // current score = 0
-    // Toggle the current player
-    // Visually mark the current score for both player to bezero..
 
     // 1) Toggle player
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
@@ -221,7 +212,6 @@ function toggleActiveUser() {
     document.querySelector(`.player-1-panel`).classList.toggle('active');
 
     // 5) Hidding the dice...
-    // document.querySelector(`#dice-${activePlayer}`).style.display = 'none';
     for(let dd of document.getElementsByClassName("dice")){
         dd.style.display = 'none';
     }
